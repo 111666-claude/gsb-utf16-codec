@@ -9,7 +9,7 @@ from .codec import Utf16Error, decode, encode
 def build_parser():
     parser = argparse.ArgumentParser(prog="utf16-codec", description="UTF-16 编解码")
     parser.add_argument("--encode-hex", help="把这段 UTF-8 十六进制文本编成 UTF-16LE 十六进制")
-    parser.add_argument("--decode-hex", help="把这段 UTF-16LE 十六进制解成 UTF-8 十六进制")
+    parser.add_argument("--decode-hex", help="把这段 UTF-16 十六进制（无 BOM 时按 --be 决定字节序）解成 UTF-8 十六进制")
     parser.add_argument("--be", action="store_true", help="大端模式")
     return parser
 
@@ -22,7 +22,7 @@ def main(argv=None):
             print(encode(text, args.be).hex())
             return 0
         if args.decode_hex is not None:
-            text = decode(bytes.fromhex(args.decode_hex), args.be) if False else decode(bytes.fromhex(args.decode_hex))
+            text = decode(bytes.fromhex(args.decode_hex), args.be)
             print(text.encode("utf-8").hex())
             return 0
     except (Utf16Error, ValueError, UnicodeDecodeError) as error:
