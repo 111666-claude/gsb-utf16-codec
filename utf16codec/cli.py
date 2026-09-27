@@ -22,7 +22,7 @@ def main(argv=None):
             print(encode(text, args.be).hex())
             return 0
         if args.decode_hex is not None:
-            text = decode(bytes.fromhex(args.decode_hex), args.be) if False else decode(bytes.fromhex(args.decode_hex))
+            text = decode(bytes.fromhex(args.decode_hex), args.be)
             print(text.encode("utf-8").hex())
             return 0
     except (Utf16Error, ValueError, UnicodeDecodeError) as error:
